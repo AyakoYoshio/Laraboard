@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ThreadsController@index');
+Auth::routes();
+Route::resource('threads', 'ThreadsController');
+Route::resource('comments', 'CommentsController', ['except' => ['index','create','show']]);
+Route::get('threads/{thread}/comment', ['as' => 'comments.create', 'uses' => 'CommentsController@create']);
